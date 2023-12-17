@@ -2,7 +2,7 @@ import express from 'express';
 import cors from 'cors';
 import bodyParser from 'body-parser';
 import mongoose from 'mongoose';
-import { getAllUsers, createUser, addFavoriteMusic } from './models/userModel.js';
+import { getAllUsers, createUser, addFavoriteMusic } from './src/models/userModel.js';
 
 const app = express();
 
