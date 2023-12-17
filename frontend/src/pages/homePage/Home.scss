@@ -1,0 +1,83 @@
+body {
+  background-color: black !important;
+}
+
+* {
+  padding: 4px;
+}
+
+.grid4 {
+
+  .div1 {
+    border-radius: 9px;
+    background-color: #121212;
+    display: block;
+
+    
+  }
+
+  .div2 {
+    margin-top: 15px;
+    border-radius: 9px;
+    background-color: #121212;
+    justify-content: left;
+    display: block;
+    height: 118%;
+
+    #combo-box-demo {
+      color: white;
+
+      
+    }
+    label {
+      color: white;
+    }
+  }
+
+  div {
+    display: flex;
+
+    .icon {
+      color: #fff;
+      display: block;
+      font-size: 2rem;
+    }
+
+    .iconName {
+      padding-top: 9px;
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+      margin-block: 0px;
+      font-size: 1rem;
+      font-weight: 700;
+      font-family: var(--font-family,CircularSp,CircularSp-Arab,CircularSp-Hebr,CircularSp-Cyrl,CircularSp-Grek,CircularSp-Deva,var(--fallback-fonts,sans-serif));
+    }
+
+    .avatars {
+      display: block;
+
+      div {
+        margin: 5px;
+      }
+    }
+  }
+  
+  .home {
+    color: white;
+  }
+
+  .search, .library {
+    color: #b3b3b3;
+  }
+}
+
+.playBar {
+  position: relative;
+  left: -24px;
+  top: 222px;
+  background-color: black;
+  width: 150%;
+  height: 70px;
+  padding: 0 !important;
+  margin: 0 !important;
+}
