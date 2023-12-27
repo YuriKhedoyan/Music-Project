@@ -3,6 +3,7 @@ import cors from 'cors';
 import bodyParser from 'body-parser';
 import mongoose from 'mongoose';
 import { getAllUsers, createUser, addFavoriteMusic } from './src/models/userModel.js';
+import {getMusicList} from './src/models/musicListModel.js'
 
 const app = express();
 
@@ -16,6 +17,17 @@ app.get('/api/getAllUsers', (req, res) => {
   getAllUsers()
     .then((users) => {
       res.json(users);
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500).json({ error: 'Internal Server Error' });
+    });
+});
+
+app.get('/api/musicList', (req, res) => {
+  getMusicList()
+    .then((musicList) => {
+      res.json(musicList);
     })
     .catch((err) => {
       console.error(err);
