@@ -1,8 +1,7 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link, useNavigate } from 'react-router-dom';
-import { userAdded } from "../usersSlice";
 import { TextField, Alert } from '@mui/material';
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import axios from "axios";
 
 import "./Register.scss"
@@ -15,9 +14,26 @@ const RegisterPage = () => {
   const [email, setEmail] = useState("");
   const [isErrorOpen, setErrorOpen] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
-  const dispatch = useDispatch()
-  const usersEmail = useSelector((state) => state.users).map((obj) => obj.email);
-  const users = useSelector((state) => state.users);
+  const [data, setData] = useState("");
+  const [users, setUsers] = useState([]);
+  
+  useEffect(() => {
+    const fetchData = async () => {
+      const result = await axios.get("http://localhost:3000/api/getAllUsers");
+      setUsers(result.data);
+    };
+    fetchData();
+  }, []);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const result = await axios.get("http://localhost:3000/api/getAllUsers");
+      setData(result);
+    };
+    fetchData();
+  }, []);
+  
+  const usersEmail = data?.data?.map((obj) => obj.email);
 
   const submitButton = () => {
     if (password1 !== password2) {
@@ -34,15 +50,15 @@ const RegisterPage = () => {
       setErrorMessage("Please fill out all fields");
       return;
     }
-    if (usersEmail.includes(email)) {
+    if (usersEmail.includes(email) && usersEmail.length > 0) {
       setErrorOpen(true);
       setTimeout(() => setErrorOpen(false), 5000);
       setErrorMessage("This email is already used. Please try another one.");
       return;
     }
-    dispatch(userAdded(username, password1, email));
     navigate('/home', { state: users[users.length - 1] })
     axios.post('http://localhost:3000/api/createUser', {
+      id: users.length ?? 0,
       name: username,
       email,
       password: password1,

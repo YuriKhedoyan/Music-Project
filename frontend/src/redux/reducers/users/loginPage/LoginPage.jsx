@@ -1,16 +1,24 @@
-import { useState } from "react";
-import { TextField, Alert } from '@mui/material';
 import { Link } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useState, useEffect } from "react";
 import { useNavigate } from 'react-router-dom';
+import { TextField, Alert } from '@mui/material';
+import axios from 'axios';
 
 const RegisterPage = () => {
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
   const [isErrorOpen, setErrorOpen] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
-  const users = useSelector((state) => state.users);
+  const [users, setUsers] = useState([]);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const result = await axios.get("http://localhost:3000/api/getAllUsers");
+      setUsers(result.data);
+    };
+    fetchData();
+  }, []);
 
   const submitButton = () => {
     if (!email || !password) {

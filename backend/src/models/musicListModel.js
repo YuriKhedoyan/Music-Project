@@ -1,6 +1,10 @@
 import mongoose from "mongoose";
 
 const musicSchema = new mongoose.Schema({
+  id: { 
+    type: Number,
+    required: true,
+  },
   name: {
     type: String,
     required: true,
@@ -22,7 +26,7 @@ const musicSchema = new mongoose.Schema({
 const Music = mongoose.model('music-list', musicSchema);
 
 export const getMusicList = () => {
-  return Music.find({}).exec();;
+  return Music.find({}).exec();
 };
 
 export { Music };

@@ -1,14 +1,14 @@
 import mongoose from 'mongoose';
 
 const UserSchema = new mongoose.Schema({
-  id: String,
+  id: Number,
   name: String,
   email: String,
   password: String,
   favoriteMusic: {},
 });
 
-const User = mongoose.model('users', UserSchema);
+export const User = mongoose.model('users', UserSchema);
 
 export const getAllUsers = () => {
   return User.find({});

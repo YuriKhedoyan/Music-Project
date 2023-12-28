@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import axios from "axios";
 import { useState, useEffect } from "react";
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
@@ -5,7 +6,7 @@ import { Typography, CardMedia, CardContent, CardActions, Button, Card } from '@
 
 import './MusicList.scss'
 
-const MusicList = () => {
+const MusicList = userId => {
   const [data, setData] = useState([]);
 
   useEffect(() => {
@@ -16,14 +17,18 @@ const MusicList = () => {
     fetchData();
   }, []);
 
+  const addFavorite = id => {
+    axios.post('http://localhost:3000/api/addFavoriteMusic/' + id, {userId})
+  }
+
   return (
     <>
-      {data.map(el => <>
+      {data?.map(el => <>
         <div className="musicList">
-          <Card sx={{ maxWidth: 250, height: 500}} className="musicItem">
-              <CardActions className="cardAction">
-                <Button size="small" className="favButton"><FavoriteBorderIcon /></Button>  
-              </CardActions>
+          <Card sx={{ maxWidth: 250, height: 500 }} className="musicItem">
+            <CardActions className="cardAction">
+              <Button size="small" className="favButton" onClick={e => addFavorite(el.id)}><FavoriteBorderIcon /></Button>
+            </CardActions>
             <CardMedia
               sx={{ height: 250, width: 250 }}
               image={el.img}
