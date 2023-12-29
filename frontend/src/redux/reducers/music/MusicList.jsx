@@ -1,10 +1,10 @@
 /* eslint-disable no-unused-vars */
 import axios from "axios";
 import { useState, useEffect } from "react";
-import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
-import { Typography, CardMedia, CardContent, CardActions, Button, Card } from '@mui/material/';
+import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import { Typography, CardMedia, CardContent, CardActions, Button, Card } from "@mui/material/";
 
-import './MusicList.scss'
+import "./MusicList.scss"
 
 const MusicList = userId => {
   const [data, setData] = useState([]);
@@ -18,7 +18,7 @@ const MusicList = userId => {
   }, []);
 
   const addFavorite = id => {
-    axios.post('http://localhost:3000/api/addFavoriteMusic/' + id, {userId})
+    axios.post("http://localhost:3000/api/addFavoriteMusic/" + id, {userId})
   }
 
   return (

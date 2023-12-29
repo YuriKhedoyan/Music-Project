@@ -23,10 +23,8 @@ const musicSchema = new mongoose.Schema({
   },
 });
 
-const Music = mongoose.model('music-list', musicSchema);
+const Music = mongoose.model("music-list", musicSchema);
 
-export const getMusicList = () => {
-  return Music.find({}).exec();
-};
+export const getMusicList = () => Music.find({}).exec();
 
 export { Music };

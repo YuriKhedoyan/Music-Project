@@ -1,4 +1,4 @@
-import mongoose from 'mongoose';
+import mongoose from "mongoose";
 
 const UserSchema = new mongoose.Schema({
   id: Number,
@@ -8,7 +8,7 @@ const UserSchema = new mongoose.Schema({
   favoriteMusic: {},
 });
 
-export const User = mongoose.model('users', UserSchema);
+export const User = mongoose.model("users", UserSchema);
 
 export const getAllUsers = () => {
   return User.find({});

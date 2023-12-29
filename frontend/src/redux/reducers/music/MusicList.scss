@@ -1,8 +1,11 @@
 .musicList {
   display: inline-flex;
+  text-align: left;
+  padding-left: 13px;
 }
 
 .musicItem {
+  margin: 0 auto;
   background-color: #181818 !important;
 
   p {

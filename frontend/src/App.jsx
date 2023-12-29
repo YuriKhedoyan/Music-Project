@@ -1,8 +1,8 @@
 import {createBrowserRouter,RouterProvider,} from "react-router-dom";
 
-import Home from './pages/homePage/Home';
-import LoginPage from './redux/reducers/users/loginPage/LoginPage';
-import RegisterPage from './redux/reducers/users/registerPage/RegisterPage';
+import Home from "./pages/homePage/Home";
+import LoginPage from "./redux/reducers/users/loginPage/LoginPage";
+import RegisterPage from "./redux/reducers/users/registerPage/RegisterPage";
 
 const router = createBrowserRouter([
   {
