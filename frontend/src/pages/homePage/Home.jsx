@@ -1,27 +1,36 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react/jsx-key */
+// eslint-disable-next-line no-unused-vars
+import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
+import { Grid, Autocomplete, TextField, Avatar } from "@mui/material";
 import HomeIcon from "@mui/icons-material/Home";
 import SearchIcon from "@mui/icons-material/Search";
 import LibraryMusicIcon from "@mui/icons-material/LibraryMusic";
-import { Grid, Autocomplete, TextField, Avatar } from "@mui/material";
 
 import MusicList from "../../redux/reducers/music/MusicList";
-
 import "./Home.scss";
+import LikdedMuiscList from './../../redux/reducers/likdedMuiscList/LikdedMuiscList';
 
 const Home = () => {
   const currentTime = new Date().getHours();
+  const [likedMusicsId, setLikedMusicsId] = useState();
   const [authorsList, setAuthorsList] = useState([]);
   const [musicsList, setMusicsList] = useState([]);
+  const [likedList, setLikedList] = useState(false);
+
   const location = useLocation();
   const userState = location.state;
 
   useEffect(() => {
     const fetchData = async () => {
-      const result = await axios.get("http://localhost:3000/api/musicList");
-      setMusicsList(result.data[0].musicList);
+      try {
+        const result = await axios.get("http://localhost:3000/api/musicList");
+        setMusicsList(result.data[0]?.musicList || []);
+      } catch (error) {
+        console.error("Error fetching music list:", error);
+      }
     };
 
     fetchData();
@@ -29,8 +38,29 @@ const Home = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const result = await axios.get("http://localhost:3000/api/getAuthorsList");
-      setAuthorsList(result.data[0].authorsList);
+      try {
+        const result = await axios.get(
+          "http://localhost:3000/api/getAuthorsList"
+        );
+        setAuthorsList(result.data[0]?.authorsList || []);
+      } catch (error) {
+        console.error("Error fetching authors list:", error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const result = await axios.get(
+          "http://localhost:3000/api/getAllUsers"
+        );
+        setLikedMusicsId(result.data[userState.id].favoriteMusic);
+      } catch (error) {
+        console.error("Error fetching authors list:", error);
+      }
     };
 
     fetchData();
@@ -65,21 +95,30 @@ const Home = () => {
                 <LibraryMusicIcon className="icon" />
                 <p className="iconName library">Your Library</p>
               </div>
-              {authorsList.map(el => <div className="avatars">
-                <Avatar alt={el.name} src={el.img} /><p>{el.name}</p>
-              </div>)}
+              <button className="likedList" onClick={e => setLikedList(!likedList)}>
+                <div className="avatars">
+                  <Avatar src="https://misc.scdn.co/liked-songs/liked-songs-640.png" />
+                  <p>Liked Songs</p>
+                </div>
+              </button>
+              {authorsList.map((el) => (
+                <div key={el.id} className="avatars">
+                  <Avatar alt={el.name} src={el.img} />
+                  <p>{el.name}</p>
+                </div>
+              ))}
             </div>
           </Grid>
         </div>
         <Grid xs={9.3} className="grid9">
-          {currentTime <= 10 ? (
-            <h3>Good Morning</h3>
-          ) : currentTime <= 12 ? (
-            <h3>Good Afternoon</h3>
-          ) : (
-            <h3>Good Evning</h3>
-          )}
-          <MusicList userId={userState.id} />
+          <h3>
+            {currentTime >= 5 && currentTime < 12
+              ? "Good morning"
+              : currentTime >= 12 && currentTime < 18
+                ? "Good afternoon"
+                : "Good evening"}
+          </h3>
+          {likedList ? <LikdedMuiscList likedMuiscsId={likedMusicsId}/>: <MusicList userId={userState.id} />}
         </Grid>
       </Grid>
       <div className="playBar"></div>

@@ -32,18 +32,14 @@ app.get("/api/musicList", (req, res) =>
 app.post("/api/createUser", (req, res) => createUser(req.body));
 
 app.post("/api/addFavoriteMusic/:musicId", async (req, res) => {
-  try {
-    const { musicId } = req.params;
-    const { userId } = req.body;
-    if (!mongoose.Types.ObjectId.isValid(userId.userId)) {
-      return res
-        .status(400)
-        .json({ success: false, message: "Invalid user ID" });
-    }
-
-    const user = await User.findOneAndUpdate(
+  const { musicId } = req.params;
+  const { userId } = req.body;
+  let user = await User.findOneAndUpdate();
+  if (!user.favoriteMusic.includes(Number(musicId))) {
+     user = await User.findOneAndUpdate(
       { id: userId.userId },
-      { $push: { favoriteMusic: musicId } }
+      { $push: { favoriteMusic: Number(musicId) } },
+      { new: true, upsert: true }
     );
 
     if (user) {
@@ -55,8 +51,6 @@ app.post("/api/addFavoriteMusic/:musicId", async (req, res) => {
     } else {
       res.status(404).json({ success: false, message: "User not found" });
     }
-  } catch (error) {
-    res.status(500).json({ success: false, message: "Internal server error" });
   }
 });
 

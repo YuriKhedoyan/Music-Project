@@ -55,7 +55,7 @@ const RegisterPage = () => {
       setErrorMessage("This email is already used. Please try another one.");
       return;
     }
-    navigate("/home", { state: users[users.length - 1] })
+    navigate("/home", { state: users[users.length - 1 === -1 ? 0 : users.length - 1] })
     axios.post("http://localhost:3000/api/createUser", {
       id: users.length ?? 0,
       name: username,
