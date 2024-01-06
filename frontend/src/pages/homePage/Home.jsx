@@ -1,21 +1,22 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/jsx-key */
 // eslint-disable-next-line no-unused-vars
-import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useLocation } from "react-router-dom";
-import { Grid, Autocomplete, TextField, Avatar } from "@mui/material";
 import HomeIcon from "@mui/icons-material/Home";
+import React, { useEffect, useState } from "react";
 import SearchIcon from "@mui/icons-material/Search";
 import LibraryMusicIcon from "@mui/icons-material/LibraryMusic";
+import { Grid, Autocomplete, TextField, Avatar } from "@mui/material";
 
 import MusicList from "../../redux/reducers/music/MusicList";
+import LikdedMuiscList from "./../../redux/reducers/likdedMuiscList/LikdedMuiscList";
+
 import "./Home.scss";
-import LikdedMuiscList from './../../redux/reducers/likdedMuiscList/LikdedMuiscList';
 
 const Home = () => {
   const currentTime = new Date().getHours();
-  const [likedMusicsId, setLikedMusicsId] = useState();
+  const [likedMusicsId, setLikedMusicsId] = useState([]);
   const [authorsList, setAuthorsList] = useState([]);
   const [musicsList, setMusicsList] = useState([]);
   const [likedList, setLikedList] = useState(false);
@@ -26,7 +27,7 @@ const Home = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const result = await axios.get("http://localhost:3000/api/musicList");
+        const result = await axios.get("/api/musicList");
         setMusicsList(result.data[0]?.musicList || []);
       } catch (error) {
         console.error("Error fetching music list:", error);
@@ -39,9 +40,7 @@ const Home = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const result = await axios.get(
-          "http://localhost:3000/api/getAuthorsList"
-        );
+        const result = await axios.get("/api/getAuthorsList");
         setAuthorsList(result.data[0]?.authorsList || []);
       } catch (error) {
         console.error("Error fetching authors list:", error);
@@ -54,10 +53,9 @@ const Home = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const result = await axios.get(
-          "http://localhost:3000/api/getAllUsers"
-        );
-        setLikedMusicsId(result.data[userState.id].favoriteMusic);
+        const result = await axios.get("api/getAllUsers");
+        const id = userState.id-1 === -1 ? 0 : userState.id-1;
+        likedMusicsId.push(result.data[id].favoriteMusic);
       } catch (error) {
         console.error("Error fetching authors list:", error);
       }
@@ -65,6 +63,8 @@ const Home = () => {
 
     fetchData();
   }, []);
+
+  console.log(userState.id)
 
   return (
     <div className="mainDiv">
@@ -95,7 +95,10 @@ const Home = () => {
                 <LibraryMusicIcon className="icon" />
                 <p className="iconName library">Your Library</p>
               </div>
-              <button className="likedList" onClick={e => setLikedList(!likedList)}>
+              <button
+                className="likedList"
+                onClick={(e) => setLikedList(!likedList)}
+              >
                 <div className="avatars">
                   <Avatar src="https://misc.scdn.co/liked-songs/liked-songs-640.png" />
                   <p>Liked Songs</p>
@@ -116,9 +119,13 @@ const Home = () => {
               ? "Good morning"
               : currentTime >= 12 && currentTime < 18
                 ? "Good afternoon"
-                : "Good evening"}
+                : "Good evening"}, {userState.name}
           </h3>
-          {likedList ? <LikdedMuiscList likedMuiscsId={likedMusicsId}/>: <MusicList userId={userState.id} />}
+          {likedList ? (
+            <LikdedMuiscList likedMusicsId={likedMusicsId} />
+          ) : (
+            <MusicList likedMusicsId={likedMusicsId} userId={userState.id} />
+          )}
         </Grid>
       </Grid>
       <div className="playBar"></div>

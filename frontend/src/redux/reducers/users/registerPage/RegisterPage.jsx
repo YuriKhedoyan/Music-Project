@@ -26,7 +26,7 @@ const RegisterPage = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const result = await axios.get("http://localhost:3000/api/getAllUsers");
+      const result = await axios.get("api/getAllUsers");
       setData(result);
     };
     fetchData();
@@ -56,7 +56,7 @@ const RegisterPage = () => {
       return;
     }
     navigate("/home", { state: users[users.length - 1 === -1 ? 0 : users.length - 1] })
-    axios.post("http://localhost:3000/api/createUser", {
+    axios.post("api/createUser", {
       id: users.length ?? 0,
       name: username,
       email,

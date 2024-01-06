@@ -37,7 +37,7 @@ app.post("/api/addFavoriteMusic/:musicId", async (req, res) => {
   let user = await User.findOneAndUpdate();
   if (!user.favoriteMusic.includes(Number(musicId))) {
      user = await User.findOneAndUpdate(
-      { id: userId.userId },
+      { id: userId },
       { $push: { favoriteMusic: Number(musicId) } },
       { new: true, upsert: true }
     );

@@ -14,7 +14,7 @@ const RegisterPage = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const result = await axios.get("http://localhost:3000/api/getAllUsers");
+      const result = await axios.get("api/getAllUsers");
       setUsers(result.data);
     };
     fetchData();
