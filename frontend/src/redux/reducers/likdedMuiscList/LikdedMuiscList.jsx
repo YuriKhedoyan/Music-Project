@@ -10,7 +10,7 @@ import {
 } from "@mui/material/";
 
 const LikdedMuiscList = likedMusicsId => {
-  likedMusicsId = Object.values(likedMusicsId).map((el, i) => el[i]);
+  likedMusicsId = Object.values(likedMusicsId).flat();
   const [musicsList, setMusicsList] = useState([]);
 
   useEffect(() => {
@@ -25,26 +25,26 @@ const LikdedMuiscList = likedMusicsId => {
 
     fetchData();
   }, []);
-  console.log(likedMusicsId)
+
   return (
     <>
       
-      {musicsList.filter((el) => likedMusicsId[0]?.includes(el.id)).map((el) => (
+      {musicsList.filter((el) => likedMusicsId[0]?.includes(el.id)).map(currentMuisc => (
         <>
-          <div className="musicList">
+          <div className="musicList" key={currentMuisc.id}>
             <Card sx={{ maxWidth: 250, height: 500 }} className="musicItem">
               <CardActions className="cardAction"></CardActions>
               <CardMedia
                 sx={{ height: 250, width: 250 }}
-                image={el.img}
-                title={el.name}
+                image={currentMuisc.img}
+                title={currentMuisc.name}
               />
               <CardContent>
                 <Typography gutterBottom variant="h5" component="div">
-                  <p>{el.artist}</p>
+                  <p>{currentMuisc.artist}</p>
                 </Typography>
                 <Typography variant="body2" color="text.secondary">
-                  <p>{el.name}</p>
+                  <p>{currentMuisc.name}</p>
                 </Typography>
               </CardContent>
             </Card>

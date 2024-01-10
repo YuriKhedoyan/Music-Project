@@ -15,14 +15,13 @@ import {
 
 import "./MusicList.scss";
 
-const MusicList = (props) => {
-  const { userId, likedMusicsId } = props;
-  const [data, setData] = useState([]);
+const MusicList = ({ userId, likedMusicsId }) => {
+  const [musicList, setMusicList] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
       const result = await axios.get("api/musicList");
-      setData(result.data[0].musicList);
+      setMusicList(result.data[0].musicList);
     };
     fetchData();
   }, []);
@@ -35,19 +34,19 @@ const MusicList = (props) => {
     //Write code for deleting music from favorite (to do)
   };
 
-  const favoriteSongs = data
+  const favoriteSongs = musicList
     .filter((el) => likedMusicsId[0]?.includes(el.id))
     .map((el) => el.id);
 
-  const updatedMusicList = data.map((el) => ({
+  const updatedMusicList = musicList.map((el) => ({
     favorite: favoriteSongs.includes(el.id),
   }));
 
   return (
     <>
-      {data?.map((el, i) => (
+      {musicList?.map((el, i) => (
         <>
-          <div className="musicList">
+          <div className="musicList" key={el.id}>
             <Card sx={{ maxWidth: 250, height: 500 }} className="musicItem">
               <CardActions className="cardAction">
                 {!updatedMusicList[i].favorite ? (

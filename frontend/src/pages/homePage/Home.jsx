@@ -64,8 +64,6 @@ const Home = () => {
     fetchData();
   }, []);
 
-  console.log(userState.id)
-
   return (
     <div className="mainDiv">
       <Grid container spacing={2} className="div">
