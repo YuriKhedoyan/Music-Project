@@ -1,0 +1,177 @@
+body {
+  background-color: black !important;
+}
+
+* {
+  padding: 8px;
+  padding-left: 1px;
+  padding-top: 2px;
+}
+
+.mainDiv {
+
+  .grid {
+    min-width: 110% !important;
+    min-height: 200% !important;
+  }
+
+  .stickyWrapper {
+    position: sticky;
+    top: 4px;
+    padding: 4px 0;
+    max-width: 420px;
+    font-family: var(--font-family, CircularSp, CircularSp-Arab, CircularSp-Hebr, CircularSp-Cyrl, CircularSp-Grek, CircularSp-Deva, var(--fallback-fonts, sans-serif));
+  }
+
+  .grid2 {
+    position: sticky;
+    top: 4px;
+    padding: 4px 12px;
+    max-width: 420px;
+    font-family: var(--font-family, CircularSp, CircularSp-Arab, CircularSp-Hebr, CircularSp-Cyrl, CircularSp-Grek, CircularSp-Deva, var(--fallback-fonts, sans-serif));
+
+    .div1 {
+      padding: 10px;
+      border-radius: 9px;
+      background-color: #121212;
+      display: block;
+
+      .searchIcon {
+        margin-top: 12px;
+      }
+
+      fieldset {
+        border: 1px solid white;
+      }
+
+      label {
+        color: white;
+      }
+
+    }
+
+    .div2 {
+      margin-top: 15px;
+      padding: 9.5px;
+      padding-bottom: 71%;
+      border-radius: 9px;
+      background-color: #121212;
+      justify-content: left;
+      display: block;
+
+      #combo-box-demo {
+        color: white;
+
+
+      }
+
+      label {
+        color: white;
+      }
+    }
+
+    div {
+      display: flex;
+
+      .icon {
+        color: #fff;
+        display: block;
+        font-size: 2rem;
+      }
+
+      .iconName {
+        padding-top: 9px;
+        box-sizing: border-box;
+        -webkit-tap-highlight-color: transparent;
+        margin-block: 0px;
+        font-size: 1rem;
+        font-weight: 700;
+      }
+
+      .avatars {
+        display: flex;
+        line-height: 1;
+        font-size: 18px;
+        font-family: var(--font-family, CircularSp, CircularSp-Arab, CircularSp-Hebr, CircularSp-Cyrl, CircularSp-Grek, CircularSp-Deva, var(--fallback-fonts, sans-serif));
+
+        p {
+          color: white;
+        }
+
+        div {
+          margin: 5px;
+        }
+      }
+    }
+
+    .home {
+      color: white;
+    }
+
+    .search,
+    .library {
+      color: #b3b3b3;
+    }
+  }
+
+  .likedList {
+    border: none;
+    background-color: transparent;
+
+    p {
+      font-size: 15px;
+      font-family: var(--font-family, CircularSp, CircularSp-Arab, CircularSp-Hebr, CircularSp-Cyrl, CircularSp-Grek, CircularSp-Deva, var(--fallback-fonts, sans-serif));
+    }
+  }
+
+  .grid9 {
+    padding: 15px;
+    font-size: 18px;
+    animation: rgbAnimation 50s linear infinite;
+    background-image: linear-gradient(45deg, #1a0000, #000000, #1a0000, #440088, #000088, #880000, #000088, #440088, #880000, #008844, #004488, #880044, #004488, #880044);
+    background-size: 400% 400%;
+    color: white;
+    display: block;
+    margin-top: 5px;
+    width: 100%;
+    border-radius: 9px;
+    overflow: hidden;
+    margin-bottom: 10px;
+    backface-visibility: hidden;
+    font-family: var(--font-family, CircularSp, CircularSp-Arab, CircularSp-Hebr, CircularSp-Cyrl, CircularSp-Grek, CircularSp-Deva, var(--fallback-fonts, sans-serif));
+
+    h3 {
+      padding-bottom: 25px;
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+      margin-block: 0px;
+      font-size: 2rem;
+      font-weight: 700;
+      font-family: var(--font-family, CircularSpTitle, CircularSpTitle-Tall, CircularSp-Arab, CircularSp-Hebr, CircularSp-Cyrl, CircularSp-Grek, CircularSp-Deva, var(--fallback-fonts, sans-serif));
+      color: white;
+    }
+  }
+
+  @keyframes rgbAnimation {
+    0% {
+      background-position: 0% 50%;
+    }
+
+    50% {
+      background-position: 100% 50%;
+    }
+
+    100% {
+      background-position: 0% 50%;
+    }
+  }
+}
+
+.playBar {
+  position: relative;
+  background-color: black;
+  width: 150%;
+  height: 50px;
+  padding: 0 !important;
+  margin: 0 !important;
+}
