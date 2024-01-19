@@ -22,9 +22,11 @@ const MusicList = ({ userId, likedMusicsId }) => {
     const fetchData = async () => {
       const result = await axios.get("api/musicList");
       setMusicList(result.data[0].musicList);
+      console.log(result.data[0].musicList, ":::::::::::::::::::::::");
     };
     fetchData();
   }, []);
+
 
   const addFavorite = (id) => {
     axios.post("api/addFavoriteMusic/" + id, { userId });
